@@ -28,9 +28,9 @@ $(RESULTS_DIR):
 	mkdir $@
 
 $(RESULTS_DIR)/%.txt: $(TEST_DIR)/%.in $(TEST_DIR)/%.out $(BUILD_DIR)/$(NAME)
-	@$(BUILD_DIR)/$(NAME) $< > $(RESULTS_DIR)/$(TMP_STDOUT_FILENAME); \
-	test_out_filename=$$( echo $< | sed 's/.in/.out/g'); \
 	program_out_filename=$(RESULTS_DIR)/$(TMP_STDOUT_FILENAME); \
+	@$(BUILD_DIR)/$(NAME) $< > $$program_out_filename \
+	test_out_filename=$$( echo $< | sed 's/.in/.out/g'); \
 	cmp $$test_out_filename $$program_out_filename > $@; \
 	if [ $$? = 0 ]; \
     	then echo $(SUCCESS_MESSAGE) > $@; \
